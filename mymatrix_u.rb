@@ -78,8 +78,8 @@ EOU
 end
 
 def matrix_test(section)
-  standalone = (__FILE__ == $0)  # 직접 실행(다른 파일로부터 로딩되는 것이 아닌)
-  matched = (section == $t)  # -t= 옵션 값과 section이 일치하는지
+  standalone = (__FILE__ == $0) # 직접 실행(다른 파일로부터 로딩되는 것이 아닌)
+  matched = (section == $t) # -t= 옵션 값과 section이 일치하는지
   return (standalone and matched)
 end
 
@@ -101,12 +101,15 @@ class MyVector
       @a[i] = nil
     end
   end
+
   def [](i)
-    return @a[i-1]
+    return @a[i - 1]
   end
+
   def []=(i, x)
-    @a[i-1] = x
+    @a[i - 1] = x
   end
+
   def dim
     return @a.length
   end
@@ -115,17 +118,20 @@ end
 def make_vector(dim)
   return MyVector::new(dim)
 end
+
 def vector(elements)
   dim = elements.length
   vec = make_vector(dim)
   for i in 1..dim
-    vec[i] = elements[i-1]
+    vec[i] = elements[i - 1]
   end
   return vec
 end
+
 def vector_size(vec)
   return vec.dim
 end
+
 def vector_copy(vec)
   dim = vector_size(vec)
   new_vec = make_vector(dim)
@@ -147,12 +153,15 @@ class MyMatrix
       end
     end
   end
+
   def [](i, j)
-    return @a[i-1][j-1]
+    return @a[i - 1][j - 1]
   end
+
   def []=(i, j, x)
-    @a[i-1][j-1] = x
+    @a[i - 1][j - 1] = x
   end
+
   def dim
     return @a.length, @a[0].length
   end
@@ -161,26 +170,29 @@ end
 def make_matrix(rows, cols)
   return MyMatrix::new(rows, cols)
 end
+
 def matrix(elements)
   rows = elements.length
   cols = elements[0].length
   mat = make_matrix(rows, cols)
   for i in 1..rows
     for j in 1..cols
-      mat[i,j] = elements[i-1][j-1]
+      mat[i, j] = elements[i - 1][j - 1]
     end
   end
   return mat
 end
+
 def matrix_size(mat)
   return mat.dim
 end
+
 def matrix_copy(mat)
   rows, cols = matrix_size(mat)
   new_mat = make_matrix(rows, cols)
   for i in 1..rows
     for j in 1..cols
-      new_mat[i,j] = mat[i,j]
+      new_mat[i, j] = mat[i, j]
     end
   end
   return new_mat
@@ -189,57 +201,57 @@ end
 ### 예
 
 if (matrix_test('make'))
-  puts('- vector -')  # → "- vector -"라고 표시하고 줄바꿈
+  puts('- vector -') # → "- vector -"라고 표시하고 줄바꿈
 
   puts('Make vector v = [2,9,4]^T, show v[2] and size of v.')
-  v = make_vector(3)  # 3 차원 종벡터를 생성
+  v = make_vector(3) # 3 차원 종벡터를 생성
   v[1] = 2
   v[2] = 9
   v[3] = 4
-  puts(v[2])  # → 9 를 표시하고 줄바꿈
-  puts(vector_size(v))  # → 3 (차원)
+  puts(v[2]) # → 9 를 표시하고 줄바꿈
+  puts(vector_size(v)) # → 3 (차원)
 
   puts('Make vector w = [2,9,4]^T and show w[2].')
-  w = vector([2,9,4])  # 같은 벡터를 생성하는 다른 방법
-  puts(w[2])  # → 9
+  w = vector([2, 9, 4]) # 같은 벡터를 생성하는 다른 방법
+  puts(w[2]) # → 9
 
   puts('Copy v to x and show x[2].')
-  x = vector_copy(v)  # 복제
-  puts(x[2])  # → 9
+  x = vector_copy(v) # 복제
+  puts(x[2]) # → 9
   puts('Modify x[2] and show x[2] again.')
   x[2] = 0
-  puts(x[2])  # → 0
+  puts(x[2]) # → 0
   puts('Original v[2] is not modified.')
-  puts(v[2])  # → 9
+  puts(v[2]) # → 9
 
   puts('- matrix -')
 
   puts('Make matrix A = [[2 9 4] [7 5 3]] and show a[2,1].')
-  a = make_matrix(2, 3)  # 2×3 행렬을 생성
-  a[1,1] = 2
-  a[1,2] = 9
-  a[1,3] = 4
-  a[2,1] = 7
-  a[2,2] = 5
-  a[2,3] = 3
-  puts(a[2,1])  # → 7
+  a = make_matrix(2, 3) # 2×3 행렬을 생성
+  a[1, 1] = 2
+  a[1, 2] = 9
+  a[1, 3] = 4
+  a[2, 1] = 7
+  a[2, 2] = 5
+  a[2, 3] = 3
+  puts(a[2, 1]) # → 7
   puts('Show size of A.')
-  rows, cols = matrix_size(a)  # a의 크기를 획득
-  puts(rows)  # → 2
-  puts(cols)  # → 3
+  rows, cols = matrix_size(a) # a의 크기를 획득
+  puts(rows) # → 2
+  puts(cols) # → 3
 
   puts('Make matrix B = [[2 9 4] [7 5 3]] and show b[2,1].')
-  b = matrix([[2,9,4], [7,5,3]])  # 같은 행렬을 생성하는 다른 방법
-  puts(b[2,1])  # → 7
+  b = matrix([[2, 9, 4], [7, 5, 3]]) # 같은 행렬을 생성하는 다른 방법
+  puts(b[2, 1]) # → 7
 
   puts('Copy A to C and show c[2,1].')
-  c = matrix_copy(a)  # 복제
-  puts(c[2,1])  # → 7
+  c = matrix_copy(a) # 복제
+  puts(c[2, 1]) # → 7
   puts('Modify c[2,1] and show c[2,1] again.')
-  c[2,1] = 0
-  puts(c[2,1])  # → 0
+  c[2, 1] = 0
+  puts(c[2, 1]) # → 0
   puts('Original a[2,1] is not modified.')
-  puts(a[2,1])  # → 7
+  puts(a[2, 1]) # → 7
 end
 
 #########################################################
@@ -248,9 +260,9 @@ end
 # 벡터를 표시하는 함수 vector_print 를 정의. 사용법은 예를 참조.
 def vector_print(vec)
   dim = vector_size(vec)
-  for i in 1..dim  # i = 1, 2, ..., dim 에 대해 순환 (end까지)
-    printf('%5.4g ', vec[i])  # 5 글자분의 폭을 확보하여 4째자리까지 표시
-    puts('')  # 줄바꿈
+  for i in 1..dim # i = 1, 2, ..., dim 에 대해 순환 (end까지)
+    printf('%5.4g ', vec[i]) # 5 글자분의 폭을 확보하여 4째자리까지 표시
+    puts('') # 줄바꿈
   end
   puts('')
 end
@@ -259,7 +271,7 @@ def matrix_print(mat)
   rows, cols = matrix_size(mat)
   for i in 1..rows
     for j in 1..cols
-      printf('%5.4g ', mat[i,j])
+      printf('%5.4g ', mat[i, j])
     end
     puts('')
   end
@@ -270,6 +282,7 @@ end
 def vp(mat)
   vector_print(mat)
 end
+
 def mp(mat)
   matrix_print(mat)
 end
@@ -278,11 +291,11 @@ end
 
 if (matrix_test('print'))
   puts('Print vector [3,1,4]^T twice.')
-  v = vector([3,1,4])
+  v = vector([3, 1, 4])
   vector_print(v)
   vp(v)
   puts('Print matrix [[2 9 4] [7 5 3]] twice.')
-  a = matrix([[2,9,4], [7,5,3]])
+  a = matrix([[2, 9, 4], [7, 5, 3]])
   matrix_print(a)
   mp(a)
 end
@@ -293,15 +306,15 @@ end
 ### 벡터
 
 # 합(벡터 a에 벡터 b를 더한다: a ← a+b) --- 「#」이후는 코멘트
-def vector_add(a, b)       # 함수 정의(end까지)
-  a_dim = vector_size(a)   # 각 벡터의 차원을 취득
+def vector_add(a, b) # 함수 정의(end까지)
+  a_dim = vector_size(a) # 각 벡터의 차원을 취득
   b_dim = vector_size(b)
-  if (a_dim != b_dim)      # 차원이 같지 않으면...(end까지)
+  if (a_dim != b_dim) # 차원이 같지 않으면...(end까지)
     raise 'Size mismatch.' # 에러
   end
   # ここからが本題
-  for i in 1..a_dim        # 루프(end까지): i = 1, 2, ..., a_dim
-    a[i] = a[i] + b[i]     # 성분마다 더한다.
+  for i in 1..a_dim # 루프(end까지): i = 1, 2, ..., a_dim
+    a[i] = a[i] + b[i] # 성분마다 더한다.
   end
 end
 
@@ -327,7 +340,7 @@ def matrix_add(a, b)
   end
   for i in 1..a_rows
     for j in 1..a_cols
-      a[i,j] = a[i,j] + b[i,j]
+      a[i, j] = a[i, j] + b[i, j]
     end
   end
 end
@@ -337,7 +350,7 @@ def matrix_times(mat, num)
   rows, cols = matrix_size(mat)
   for i in 1..rows
     for j in 1..cols
-      mat[i,j] = num * mat[i,j]
+      mat[i, j] = num * mat[i, j]
     end
   end
 end
@@ -357,7 +370,7 @@ def matrix_vector_prod(a, v, r)
     # a와 v의 대응하는 성분을 곱하여 그 합계를 구한다.
     s = 0
     for k in 1..a_cols
-      s = s + a[i,k] * v[k]
+      s = s + a[i, k] * v[k]
     end
     # 결과를 r에 저장
     r[i] = s
@@ -379,10 +392,10 @@ def matrix_prod(a, b, r)
       # a와 b의 대응하는 성분을 곱하여 그 합계를 구한다.
       s = 0
       for k in 1..a_cols
-        s = s + a[i,k] * b[k,j]
+        s = s + a[i, k] * b[k, j]
       end
       # 결과를 r에 저장
-      r[i,j] = s
+      r[i, j] = s
     end
   end
 end
@@ -392,24 +405,24 @@ end
 if (matrix_test('arith'))
   puts('- vector -')
 
-  v = vector([1,2])
-  w = vector([3,4])
+  v = vector([1, 2])
+  w = vector([3, 4])
 
   c = vector_copy(v)
-  vector_add(c,w)
+  vector_add(c, w)
   puts('v, w, v+w, and 10 v')
   vp(v)
   vp(w)
   vp(c)
 
   c = vector_copy(v)
-  vector_times(c,10)
+  vector_times(c, 10)
   vp(c)
 
   puts('- matrix -')
 
-  a = matrix([[3,1], [4,1]])
-  b = matrix([[10,20], [30,40]])
+  a = matrix([[3, 1], [4, 1]])
+  b = matrix([[10, 20], [30, 40]])
 
   c = matrix_copy(a)
   matrix_add(c, b)
@@ -429,7 +442,7 @@ if (matrix_test('arith'))
   vp(v)
   vp(r)
 
-  r = make_matrix(2,2)
+  r = make_matrix(2, 2)
   matrix_prod(a, b, r)
   puts('A, B, and A B')
   mp(a)
@@ -446,14 +459,17 @@ class MyVector
     vector_add(c, vec)
     return c
   end
-  def -@()  # 単項演算子「-」
+
+  def -@() # 単項演算子「-」
     c = vector_copy(self)
     vector_times(c, -1)
     return c
   end
+
   def -(vec)
-    return self + (- vec)
+    return self + (-vec)
   end
+
   def *(x)
     dims = vector_size(self)
     if (dims == 1)
@@ -466,6 +482,7 @@ class MyVector
       raise 'Type mismatch.'
     end
   end
+
   def coerce(other)
     if other.is_a? Numeric
       return vector([other]), self
@@ -481,18 +498,21 @@ class MyMatrix
     matrix_add(c, mat)
     return c
   end
-  def -@()  # 単項演算子「-」
+
+  def -@() # 単項演算子「-」
     c = matrix_copy(self)
     matrix_times(c, -1)
     return c
   end
+
   def -(mat)
-    return self + (- mat)
+    return self + (-mat)
   end
+
   def *(x)
     rows, cols = matrix_size(self)
     if (rows == 1 and cols == 1)
-      return x * self[1,1]
+      return x * self[1, 1]
     elsif x.is_a? Numeric
       c = matrix_copy(self)
       matrix_times(c, x)
@@ -510,6 +530,7 @@ class MyMatrix
       raise 'Type mismatch.'
     end
   end
+
   def coerce(other)
     if other.is_a? Numeric
       return matrix([[other]]), self
@@ -523,27 +544,27 @@ end
 
 if (matrix_test('op'))
   puts('- vector -')
-  x = vector([1,2])
-  y = vector([3,4])
+  x = vector([1, 2])
+  y = vector([3, 4])
   puts('x, y')
   vp(x)
   vp(y)
   puts('x+y, -x, y-x, x*10, 10*x')
   vp(x + y)
-  vp(- x)
+  vp(-x)
   vp(y - x)
   vp(x * 10)
   vp(10 * x)
 
   puts('- matrix -')
-  a = matrix([[3,1], [4,1]])
-  b = matrix([[10,20], [30,40]])
+  a = matrix([[3, 1], [4, 1]])
+  b = matrix([[10, 20], [30, 40]])
   puts('A, B')
   mp(a)
   mp(b)
   puts('A+B, -A, B-A, A*10, 10*A, A*B')
   mp(a + b)
-  mp(- a)
+  mp(-a)
   mp(b - a)
   mp(a * 10)
   mp(10 * a)
@@ -579,14 +600,14 @@ def lu_decomp(mat)
     # 【아】 U의 제 k 행은, 이 단계에서 잔차 자체 → 아무것도 하지 않아도 된다
     # 【이】 L의 제 k 열을 계산
     # 일반적으로 나눗셈은 시간이 걸리므로, 나눗셈의 횟수를 줄이기 위해 다듬기
-    x = 1.0 / mat[k,k]  # (mat[k,k]이 0이면, 여기서 0 나누기 에러)
-    for i in (k+1)..rows
-      mat[i,k] = mat[i,k] * x  # 요컨데 mat[i,k] / mat[k,k]
+    x = 1.0 / mat[k, k] # (mat[k,k]이 0이면, 여기서 0 나누기 에러)
+    for i in (k + 1)..rows
+      mat[i, k] = mat[i, k] * x # 요컨데 mat[i,k] / mat[k,k]
     end
     # 【우】 잔차를 갱신
-    for i in (k+1)..rows
-      for j in (k+1)..cols
-        mat[i,j] = mat[i,j] - mat[i,k] * mat[k,j]
+    for i in (k + 1)..rows
+      for j in (k + 1)..cols
+        mat[i, j] = mat[i, j] - mat[i, k] * mat[k, j]
       end
     end
   end
@@ -608,13 +629,13 @@ def lu_split(lu)
   for i in 1..rows
     for j in 1..r
       if (i > j)
-        x = lu[i,j]
-      elsif (i == j)  # else if
+        x = lu[i, j]
+      elsif (i == j) # else if
         x = 1
       else
         x = 0
       end
-      lmat[i,j] = x
+      lmat[i, j] = x
     end
   end
   # R을 구한다
@@ -623,18 +644,18 @@ def lu_split(lu)
       if (i > j)
         x = 0
       else
-        x = lu[i,j]
+        x = lu[i, j]
       end
-      umat[i,j] = x
+      umat[i, j] = x
     end
   end
-  return [lmat, umat]  # lmat과 umat의 쌍을 반환
+  return [lmat, umat] # lmat과 umat의 쌍을 반환
 end
 
 ### 예
 
 if (matrix_test('lu'))
-  a = matrix([[2,6,4], [5,7,9]])
+  a = matrix([[2, 6, 4], [5, 7, 9]])
   c = matrix_copy(a)
   lu_decomp(c)
   l, u = lu_split(c)
@@ -642,7 +663,7 @@ if (matrix_test('lu'))
   mp(a)
   mp(l)
   mp(u)
-  mp(l * u)  # a와 동일
+  mp(l * u) # a와 동일
 end
 
 #########################################################
@@ -660,7 +681,7 @@ def det(mat)
   # U의 대각 성분의 곱을 답한다.
   x = 1
   for i in 1..rows
-    x = x * mat[i,i]
+    x = x * mat[i, i]
   end
   return x
 end
@@ -668,10 +689,10 @@ end
 ### 예
 
 if (matrix_test('det'))
-  a = matrix([[2,1,3,2], [6,6,10,7], [2,7,6,6], [4,5,10,9]])
+  a = matrix([[2, 1, 3, 2], [6, 6, 10, 7], [2, 7, 6, 6], [4, 5, 10, 9]])
   puts('A and det A = -12')
   mp(a)
-  puts det(a)  # → -12
+  puts det(a) # → -12
 end
 
 #########################################################
@@ -704,8 +725,8 @@ def sol_l(lu, y, n)
   for i in 1..n
     # z[i] = y[i] - L[i,1] z[1] - ... - L[i,i-1] z[i-1]를 계산
     # 이미 구한 해 z[1], ..., z[i-1]은 y[1], ..., y[i-1]에 저장되어 있음
-    for j in 1..(i-1)
-      y[i] = y[i] - lu[i,j] * y[j]  # 질적으로는 y[i] - L[i,j] * z[j]
+    for j in 1..(i - 1)
+      y[i] = y[i] - lu[i, j] * y[j] # 질적으로는 y[i] - L[i,j] * z[j]
     end
   end
 end
@@ -717,30 +738,30 @@ def sol_u(lu, y, n)
   #   ※ 만약을 위해 주의:
   #   진짜 Ruby가 이런 어색한 언어라고 오해하지 마세요.
   #   Ruby를 몰라도 읽을 수 있도록 편리한 기능·기법은 자제하고 있습니다.
-  for k in 0..(n-1)
+  for k in 0..(n - 1)
     i = n - k
     # x[i] = (y[i] - U[i,i+1] x[i+1] - ... - U[i,n] x[n]) / U[i,i] 를 계산
     # 이미 구한 해 x[i+1], ..., x[n]은 y[i+1], ..., y[n]에 저장되어 있음
-    for j in (i+1)..n
-      y[i] = y[i] - lu[i,j] * y[j]  # 실질적으로는 y[i] - U[i,j] * x[j]
+    for j in (i + 1)..n
+      y[i] = y[i] - lu[i, j] * y[j] # 실질적으로는 y[i] - U[i,j] * x[j]
     end
-    y[i] = y[i] / lu[i,i]
+    y[i] = y[i] / lu[i, i]
   end
 end
 
 ### 예
 
 if (matrix_test('sol'))
-  a = matrix([[2,3,3], [3,4,2], [-2,-2,3]])
+  a = matrix([[2, 3, 3], [3, 4, 2], [-2, -2, 3]])
   c = matrix_copy(a)
-  y = vector([9,9,2])
+  y = vector([9, 9, 2])
   puts('A, y, and solution x of A x = y.')
   mp(a)
   vp(y)
   sol(c, y)
   vp(y)
   puts('A x')
-  vp(a*y)
+  vp(a * y)
 end
 
 #########################################################
@@ -759,9 +780,9 @@ def inv(mat)
   for i in 1..rows
     for j in 1..cols
       if (i == j)
-        ans[i,j] = 1
+        ans[i, j] = 1
       else
-        ans[i,j] = 0
+        ans[i, j] = 0
       end
     end
   end
@@ -774,26 +795,26 @@ def inv(mat)
     #   (1)복사, (2)계산, (3)결과를 재작성, 과 같이 하고 있다.
     v = make_vector(cols)
     for i in 1..cols
-      v[i] = ans[i,j]
+      v[i] = ans[i, j]
     end
     sol_lu(mat, v)
     for i in 1..cols
-      ans[i,j] = v[i]
+      ans[i, j] = v[i]
     end
   end
   return(ans)
 end
 
 if (matrix_test('inv'))
-  a = matrix([[2,3,3], [3,4,2], [-2,-2,3]])
+  a = matrix([[2, 3, 3], [3, 4, 2], [-2, -2, 3]])
   c = matrix_copy(a)
   b = inv(c)
   puts('A and B = inverse of A.')
   mp(a)
   mp(b)
   puts('A B and B A')
-  mp(a*b)
-  mp(b*a)
+  mp(a * b)
+  mp(b * a)
 end
 
 #########################################################
@@ -813,7 +834,7 @@ def plu_decomp(mat)
   # lu_decomp의 코드를 준비할 수 있다.
   p = make_vector(rows)
   for i in 1..rows
-    p[i] = i  # pivot table의 초기화. 초기값은 "i행은 i"
+    p[i] = i # pivot table의 초기화. 초기값은 "i행은 i"
   end
   # 행수(rows)와 열수(cols)에서 짧은 쪽을 s로 둔다.
   if (rows < cols)
@@ -831,14 +852,14 @@ def plu_decomp(mat)
     # 【아】 U의 제 k 행은, 이 단계에서 잔차 자체 → 아무것도 하지 않아도 된다
     # 【이】 L의 제 k 행을 계산
     x = 1.0 / p_ref(mat, k, k, p)
-    for i in (k+1)..rows
+    for i in (k + 1)..rows
       y = p_ref(mat, i, k, p) * x
       p_set(mat, i, k, p, y)
     end
     # 【우】 잔차를 갱신
-    for i in (k+1)..rows
+    for i in (k + 1)..rows
       x = p_ref(mat, i, k, p)
-      for j in (k+1)..cols
+      for j in (k + 1)..cols
         y = p_ref(mat, i, j, p) - x * p_ref(mat, k, j, p)
         p_set(mat, i, j, p, y)
       end
@@ -852,11 +873,11 @@ end
 # 구체적으로는 k 열 번째 처리되지 않은 부분 중 절대값이 가장 큰 성분을 k 번째 줄로 가져온다.
 def p_update(mat, k, rows, p)
   # 후보 (k번째 열의 미처리 부분) 중에서 챔피언(절대 값이 가장 큰 성분)을 찾는다.
-  max_val = -777  # 최약의 초대 챔피언. 누구한테도 진다.
+  max_val = -777 # 최약의 초대 챔피언. 누구한테도 진다.
   max_index = 0
   for i in k..rows
     x = abs(p_ref(mat, i, k, p))
-    if (x > max_val)  # 챔피언을 쓰러 뜨리면
+    if (x > max_val) # 챔피언을 쓰러 뜨리면
       max_val = x
       max_index = i
     end
@@ -899,12 +920,12 @@ def plu_split(lu, p)
     for j in 1..r
       if (i > j)
         x = p_ref(lu, i, j, p)
-      elsif (i == j)  # else if
+      elsif (i == j) # else if
         x = 1
       else
         x = 0
       end
-      lmat[i,j] = x
+      lmat[i, j] = x
     end
   end
   # R를 구한다
@@ -915,16 +936,16 @@ def plu_split(lu, p)
       else
         x = p_ref(lu, i, j, p)
       end
-      umat[i,j] = x
+      umat[i, j] = x
     end
   end
-  return [lmat, umat]  # lmat와 umat의 쌍을 반환
+  return [lmat, umat] # lmat와 umat의 쌍을 반환
 end
 
 ### 예
 
 if (matrix_test('plu'))
-  a = matrix([[2,6,4], [5,7,9]])
+  a = matrix([[2, 6, 4], [5, 7, 9]])
   c = matrix_copy(a)
   p = plu_decomp(c)
   l, u = plu_split(c, p)
@@ -947,20 +968,23 @@ if ($c)
   $eps = 1e-10
   class MyVector
     def to_a
-     @a
+      @a
     end
   end
   class MyMatrix
     def to_a
-     @a
+      @a
     end
   end
+
   def rmat(a)
     Matrix.rows a
   end
+
   def to_array_or_number(x)
-    [Array, Matrix, Vector, MyVector, MyMatrix].find{|c| x.is_a? c} ? x.to_a : x
+    [Array, Matrix, Vector, MyVector, MyMatrix].find {|c| x.is_a? c} ? x.to_a : x
   end
+
   def aeq?(x, y)
     x = to_array_or_number x
     y = to_array_or_number y
@@ -968,52 +992,59 @@ if ($c)
       y.is_a? Numeric and (x - y).abs < $eps
     elsif x.is_a? Array
       y.is_a? Array and
-        x.size == y.size and
-        not (0 ... x.size).map{|i| aeq? x[i], y[i]}.member? false
+          x.size == y.size and
+          not (0...x.size).map {|i| aeq? x[i], y[i]}.member? false
     else
       raise 'Bad type.'
     end
   end
+
   def rand_ary1(n)
-    (1..n).map{|i| rand - 0.5}
+    (1..n).map {|i| rand - 0.5}
   end
-  def rand_ary2(m,n)
-    (1..m).map{|i| rand_ary1 n}
+
+  def rand_ary2(m, n)
+    (1..m).map {|i| rand_ary1 n}
   end
-  def check_matmul(l,m,n)
+
+  def check_matmul(l, m, n)
     a = rand_ary2 l, m
     b = rand_ary2 m, n
     aeq? rmat(a) * rmat(b), matrix(a) * matrix(b)
   end
+
   def check_det(n)
     a = rand_ary2 n, n
     aeq? rmat(a).det, det(matrix(a))
   end
+
   def check_inv(n)
     a = rand_ary2 n, n
     aeq? rmat(a).inv, inv(matrix(a))
   end
+
   def check(label, repeat, proc)
-    (1..repeat).each{|t| raise "#{label}" if !proc.call}
+    (1..repeat).each {|t| raise "#{label}" if !proc.call}
     puts "#{label}: ok"
   end
+
   [
-    ['matmul', 100, lambda{check_matmul 6,5,4}],
-    ['det', 100, lambda{check_det 7}],
-    ['inv', 100, lambda{check_det 7}],
-    ['aeq?', 1,
-      lambda{
-        ![
-          # all pairs must be !aeq?
-          [3, 3.14],
-          [Vector[3], 3],
-          [3, vector([3])],
-          [Vector[1,2,3], vector([1,2,3,4])],
-          [Vector[1,2,3,4], vector([1,2,3])],
-          [Vector[1.1,2.2,3.3], vector([1.1,2.2000001,3.3])],
-          [rmat([[1,2,3], [4,5,6]]), matrix([[1,2,3], [4.0000001,5,6]])],
-        ].map{|a| !aeq?(*a)}.member? false}],
-    ['----------- All Tests -----------', 1, lambda{true}],
-    ['This must fail. OK if you see an error.', 1, lambda{aeq? 7.77, 7.76}],
-  ].each{|a| check *a}
+      ['matmul', 100, lambda {check_matmul 6, 5, 4}],
+      ['det', 100, lambda {check_det 7}],
+      ['inv', 100, lambda {check_det 7}],
+      ['aeq?', 1,
+       lambda {
+         ![
+             # all pairs must be !aeq?
+             [3, 3.14],
+             [Vector[3], 3],
+             [3, vector([3])],
+             [Vector[1, 2, 3], vector([1, 2, 3, 4])],
+             [Vector[1, 2, 3, 4], vector([1, 2, 3])],
+             [Vector[1.1, 2.2, 3.3], vector([1.1, 2.2000001, 3.3])],
+             [rmat([[1, 2, 3], [4, 5, 6]]), matrix([[1, 2, 3], [4.0000001, 5, 6]])],
+         ].map {|a| !aeq?(*a)}.member? false}],
+      ['----------- All Tests -----------', 1, lambda {true}],
+      ['This must fail. OK if you see an error.', 1, lambda {aeq? 7.77, 7.76}],
+  ].each {|a| check *a}
 end
